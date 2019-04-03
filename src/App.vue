@@ -7,9 +7,6 @@
 
 <script>
 import CmHeader from './components/cm-header'
-import {
-  getOne
-} from './api'
 
 export default {
   name: 'app',
@@ -17,11 +14,7 @@ export default {
     CmHeader
   },
   created () {
-    getOne({
-      aaa: '111'
-    }).then(res => {
-
-    }).catch(err => {})
+  
   }
 }
 </script>
