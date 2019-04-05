@@ -6,22 +6,23 @@
 </template>
 
 <script>
-import CmHeader from './components/cm-header'
+  import CmHeader from './components/cm-header'
+  import store from './store/index.js'
 
-export default {
-  name: 'app',
-  components: {
-    CmHeader
-  },
-  created () {
-  
+  export default {
+    name: 'app',
+    components: {
+      CmHeader
+    },
+    created () {
+      store.dispatch('getUser')
+    }
   }
-}
 </script>
 
 <style lang="scss" scoped>
 .app-middle{
-  width: 1000px;
+  width: 800px;
   margin: 80px auto 20px;
 }
 </style>

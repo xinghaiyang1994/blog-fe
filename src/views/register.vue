@@ -1,10 +1,10 @@
 <template>
   <div class="register">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="用户名" prop="name" :rules="rules.must">
+      <el-form-item label="用户名" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="password" :rules="rules.must">
+      <el-form-item label="密码" prop="password">
         <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="重复密码" prop="repeatPassword">
@@ -23,8 +23,8 @@
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="validateForm()">注册</el-button>
-        <el-button @click="resetForm()">重置</el-button>
+        <el-button type="primary" @click="validateForm">注册</el-button>
+        <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -33,7 +33,11 @@
 <script>
   import API from '../service/index.js'
   import {
-    postCommonRegister
+    checkTextMust,
+    checkFileList
+  } from '../utils/check.js'
+  import {
+    postUserRegister
   } from '../api/index.js'
 
   export default {
@@ -48,13 +52,6 @@
         }
         return callback()
       }
-      // 文件数量校验
-      const checkFileList = (rule, value, callback) => {
-        if (value.length === 0) {
-          return callback(new Error('不能为空'))
-        }
-        return callback()
-      }
 
       return {
         commonUpload: API.COMMON_UPLOAD,
@@ -65,15 +62,21 @@
           fileList: []
         },
         rules: {
-          must: [
-            { required: true, trigger: ['blur', 'change'], message: '不能为空' },
+          name: [
+            { required: true, validator: checkTextMust, trigger: ['blur', 'change'], message: '不能为空!' },
+            { max: 20, trigger: ['blur', 'change'], message: '最多 20 个字符!' },
+          ],
+          password: [
+            { required: true, trigger: ['blur', 'change'], message: '不能为空!' },
+            { max: 20, trigger: ['blur', 'change'], message: '最多 20 个字符!' },
           ],
           repeatPassword: [
-            { required: true, trigger: ['blur', 'change'], message: '不能为空' },
+            { required: true, trigger: ['blur', 'change'], message: '不能为空!' },
+            { max: 20, trigger: ['blur', 'change'], message: '最多 20 个字符!' },
             { validator: checkRepeatPassword, trigger: ['blur', 'change'] }
           ],
           fileList: [
-            { required: true, trigger: ['blur', 'change'], message: '不能为空' },
+            { required: true, trigger: ['blur', 'change'], message: '不能为空!' },
             { validator: checkFileList, trigger: ['blur', 'change'] }
           ]
         },
@@ -126,7 +129,6 @@
       validateForm () {
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
-            alert('submit!')
             this.dealData()
           } else {
             console.log('error submit!!')
@@ -146,7 +148,7 @@
       },
       submitService (data) {
         console.log('注册数据', data)
-        postCommonRegister().then(res => {
+        postUserRegister(data).then(res => {
           this.$message({
             type: 'success',
             message: res.message

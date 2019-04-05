@@ -4,10 +4,15 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
 
+import './style/base.scss'
 import './style/variables.scss'
-import './style/base.css'
+import './style/common.scss'
+
+import filter from './filter/index';
 
 Vue.use(ElementUI);
+
+filter(Vue)
 
 Vue.config.productionTip = false
 
