@@ -8,7 +8,7 @@
         <el-input type="textarea" v-model="ruleForm.md" :rows="15" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="validateForm">发表</el-button>
+        <el-button type="primary" @click="validateForm">{{type === 'add' ? '发表' : '修改'}}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -23,7 +23,7 @@
     postPostAdd,
     postPostModify,
     getPostDetail
-  } from '../api/mock.js'
+  } from '../api/index.js'
 
   export default {
     data () {

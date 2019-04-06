@@ -9,11 +9,11 @@
         <el-card>
           <div @click="toDetail(item.id)" class="cml-list-item">
             <h4 class="cml-title">{{item.title}}</h4>
-            <p class="cml-conetnt">{{item.content | limit(40)}}</p>
+            <p class="cml-conetnt" v-html="item.content"></p>
             <div class="cml-bottom clearfix">
               <div class="fl clearfix">
                 <span class="cml-bottom-img fl mr-10">
-                  <img :src="item.user.avator" class="wh-all" alt="">
+                  <img :src="imgUrl + item.user.avator" class="wh-all" alt="">
                 </span>
                 <span class="fl mr-20">作者:{{item.user.name}}</span>
               </div>
@@ -41,33 +41,35 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
+  import API from '../service/index.js'
 
-    }
-  },
-  props: {
-    list: {
-      type: Array,
-      default: []
+  export default {
+    data () {
+      return {
+        imgUrl: API.IMG_URL
+      }
     },
-    page: {
-      type: Object,
-      default: {}
-    }
-  },
-  methods: {
-    chgCurrent (index) {
-      this.$emit('chgCurrent', {
-        current: index
-      })
+    props: {
+      list: {
+        type: Array,
+        default: []
+      },
+      page: {
+        type: Object,
+        default: {}
+      }
     },
-    toDetail (index) {
-      this.$router.push(`/post/${index}`)
+    methods: {
+      chgCurrent (index) {
+        this.$emit('chgCurrent', {
+          current: index
+        })
+      },
+      toDetail (index) {
+        this.$router.push(`/post/${index}`)
+      }
     }
   }
-}
 </script>
 
 
@@ -86,6 +88,9 @@ export default {
       padding: 5px 0;
       font-size: 16px;
       margin-bottom: 10px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
     .cml-bottom{
       line-height: 30px;

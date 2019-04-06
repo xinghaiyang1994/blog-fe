@@ -24,13 +24,14 @@
 
 <script>
   import API from '../service/index.js'
+  import store from '../store/index.js'
   import {
     checkTextMust,
     checkCaptcha
   } from '../utils/check.js'
   import {
     postUserLogin
-  } from '../api/mock.js'
+  } from '../api/index.js'
 
   export default {
     data () {
@@ -87,6 +88,7 @@
             type: 'success',
             message: res.message
           })
+          store.dispatch('getUser')
           setTimeout(() => {
             this.$router.push('/myPosts')
           }, 1000)

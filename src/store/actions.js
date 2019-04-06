@@ -1,6 +1,6 @@
 import {
   getUserInfo
-} from '../api/mock'
+} from '../api/index'
 
 export default {
   getUser ({ commit }) {

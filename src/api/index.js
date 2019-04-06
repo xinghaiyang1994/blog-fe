@@ -3,8 +3,6 @@ import API from '../service'
 import vueInstance from '../main'
 
 let ajax = ajaxInt({
-  initCookie: false,
-  json: false,
   // 响应统一处理
   initTransformResponseFn(res) {
     if (res.status === 200 && res.data.code !== 0) {
@@ -49,7 +47,7 @@ function getUserInfo () {
 function postUserLogout () {
   return ajax({
     type: 'post',
-    url: API.USER_LOGIN
+    url: API.USER_LOGOUT
   })
 }
 

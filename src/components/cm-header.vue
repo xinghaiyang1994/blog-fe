@@ -33,7 +33,7 @@
   import store from '../store/index.js'
   import {
     postUserLogout
-  } from '../api/mock.js'
+  } from '../api/index.js'
 
   export default {
     data() {
@@ -48,7 +48,6 @@
     },
     methods: {
       logout () {
-        console.log(1)
         postUserLogout().then(res => {
           this.$message({
             type: 'success',
@@ -73,6 +72,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1;
     .cmh-logo{
       font-size: 30px;
       line-height: 61px;

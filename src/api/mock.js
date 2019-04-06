@@ -28,7 +28,7 @@ function getUserInfo (data) {
       code: 0,
       message: '数据请求成功',
       data: {
-        id: 1,
+        // id: 1,
         name: '张三'
       }
     }

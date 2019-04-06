@@ -12,7 +12,7 @@
   import CmList from '../components/cm-list.vue'
   import {
     getPostList
-  } from '../api/mock.js'
+  } from '../api/index.js'
 
   const pageSize = 10
 

@@ -2,11 +2,11 @@
   <div class="detail">
     <div class="cml-list-item">
       <h4 class="cml-title">{{detail.title}}</h4>
-      <p class="cml-conetnt">{{detail.content | limit(40)}}</p>
+      <p class="cml-conetnt" v-html="detail.content"></p>
       <div class="cml-bottom clearfix">
         <div class="fl clearfix">
           <span class="cml-bottom-img fl mr-10">
-            <img :src="detail.user.avator" class="wh-all" alt="">
+            <img :src="imgUrl + detail.user.avator" class="wh-all" alt="">
           </span>
           <span class="fl mr-20">作者:{{detail.user.name}}</span>
         </div>
@@ -36,7 +36,7 @@
           :key="index" 
           class="detail-comment-list clearfix">
           <div class="detail-comment-list-img fl">
-            <img :src="item.user.avator" class="wh-all" alt="">
+            <img :src="imgUrl + item.user.avator" class="wh-all" alt="">
           </div>
           <div class="detail-comment-list-right fl">
             <div class="clearfix">
@@ -69,24 +69,28 @@
 
 <script>
   import 'github-markdown-css'
+  import API from '../service/index.js'
   import store from '../store/index.js'
   import {
     checkTextMust
   } from '../utils/check.js'
   import {
-    postPostPv,
-    getPostDetail,
-    postPostDelete,
     postCommentAdd,
     getCommentList,
     postCommentDelete
   } from '../api/mock.js'
+  import {
+    postPostPv,
+    getPostDetail,
+    postPostDelete,
+  } from '../api/index.js'
 
   const pageSize = 5
 
   export default {
     data () {
       return {
+        imgUrl: API.IMG_URL,
         id: '',   // 文章id
         detail: {
           userId: '',
@@ -215,6 +219,7 @@
     },
     created () {
       let id = this.$route.params.id
+      this.id = id
 
       // 增加 pv
       postPostPv({ id }).catch(() => {})
