@@ -123,15 +123,6 @@ function postCommentAdd (data) {
   })
 }
 
-// 修改评论
-function postCommentModify (data) {
-  return ajax({
-    type: 'post',
-    url: API.COMMENT_MODIFY,
-    data
-  })
-}
-
 // 删除评论
 function postCommentDelete (data) {
   return ajax({
@@ -166,7 +157,6 @@ export {
   postPostPv,
   // 评论
   postCommentAdd,
-  postCommentModify,
   postCommentDelete,
   getCommentList
 }

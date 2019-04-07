@@ -23,10 +23,9 @@ const API = {
   POST_PV: DOMAIN + '/post/pv',   // 增加浏览量
 
   // 评论
-  COMMENT_ADD: DOMAIN + '',   // 新增评论
-  COMMENT_MODIFY: DOMAIN + '',   // 修改评论
-  COMMENT_DELETE: DOMAIN + '',   // 删除评论
-  COMMENT_LIST: DOMAIN + '',   // 评论列表
+  COMMENT_ADD: DOMAIN + '/comment/add',   // 新增评论
+  COMMENT_DELETE: DOMAIN + '/comment/delete',   // 删除评论
+  COMMENT_LIST: DOMAIN + '/comment/list',   // 评论列表
 
   TEST_URL: '//xinghaiyang.com/test/b.php'
 }

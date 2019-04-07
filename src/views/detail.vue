@@ -75,14 +75,12 @@
     checkTextMust
   } from '../utils/check.js'
   import {
-    postCommentAdd,
-    getCommentList,
-    postCommentDelete
-  } from '../api/mock.js'
-  import {
     postPostPv,
     getPostDetail,
     postPostDelete,
+    postCommentAdd,
+    getCommentList,
+    postCommentDelete
   } from '../api/index.js'
 
   const pageSize = 5
@@ -139,8 +137,8 @@
       dealData () {
         let form = JSON.parse(JSON.stringify(this.ruleForm))
         let data = {
-          id: this.id,
-          comment: form.comment
+          postId: this.id,
+          content: form.comment
         }
         this.submitService(data)
       },
@@ -156,6 +154,8 @@
           // 刷新列表
           this.page.current = 1
           this.getCommentList()
+          // 刷新文章详情
+          this.getPostDetail()
         }).catch(() => {})
       },
       edit () {
@@ -186,7 +186,7 @@
       },
       getCommentList () {
         let data = { 
-          id: this.id,
+          postId: this.id,
           current: this.page.current,
           pageSize
         }
@@ -204,16 +204,27 @@
           type: 'warning'
         }).then(() => {
           postCommentDelete({
-            id
+            commentId: id
           }).then(res => {
             this.$message({
               type: 'success',
               message: '删除成功'
             })
+
             // 刷新列表
             this.page.current = 1
             this.getCommentList()
+            
+            // 刷新文章详情
+            this.getPostDetail()
           }).catch(() => {})
+        }).catch(() => {})
+      },
+      getPostDetail () {
+        getPostDetail({ 
+          id: this.id
+        }).then(res => {
+          this.detail = res.data
         }).catch(() => {})
       }
     },
@@ -225,9 +236,7 @@
       postPostPv({ id }).catch(() => {})
 
       // 获取文章详情
-      getPostDetail({ id }).then(res => {
-        this.detail = res.data
-      }).catch(() => {})
+      this.getPostDetail()
 
       // 获取评论列表
       this.getCommentList()
