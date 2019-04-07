@@ -2,7 +2,7 @@
   <div class="detail">
     <div class="cml-list-item">
       <h4 class="cml-title">{{detail.title}}</h4>
-      <p class="cml-conetnt" v-html="detail.content"></p>
+      <p class="cml-conetnt markdown-body" v-html="detail.content"></p>
       <div class="cml-bottom clearfix">
         <div class="fl clearfix">
           <span class="cml-bottom-img fl mr-10">
@@ -41,9 +41,9 @@
           <div class="detail-comment-list-right fl">
             <div class="clearfix">
               <span class="detail-clr-name fl">{{item.user.name}}</span>
-              <span class="detail-clr-time fr">{{item.user.gmtModified | dateTime}}</span>
+              <span class="detail-clr-time fr">{{item.gmtModified | dateTime}}</span>
             </div>
-            <div class="detail-clr-content markdown-body">{{item.content}}</div>
+            <div class="detail-clr-content">{{item.content}}</div>
             <div class="clearfix" v-if="item.userId === user.id">
               <i @click="deleteComment(item.id)" class="detail-clr-delete el-icon-delete fr" title="删除"></i>
             </div>
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-  import 'github-markdown-css'
+  import 'github-markdown-css';
   import API from '../service/index.js'
   import store from '../store/index.js'
   import {
@@ -214,7 +214,7 @@
             // 刷新列表
             this.page.current = 1
             this.getCommentList()
-            
+
             // 刷新文章详情
             this.getPostDetail()
           }).catch(() => {})

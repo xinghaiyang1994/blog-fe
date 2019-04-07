@@ -1,42 +1,44 @@
 <template>
   <div class="cm-list">
-    <el-timeline>
-      <el-timeline-item 
-        v-for="(item, index) in list" 
-        :key="index"
-        :timestamp="item.gmtModified | dateTime" 
-        placement="top">
-        <el-card>
-          <div @click="toDetail(item.id)" class="cml-list-item">
-            <h4 class="cml-title">{{item.title}}</h4>
-            <p class="cml-conetnt" v-html="item.content"></p>
-            <div class="cml-bottom clearfix">
-              <div class="fl clearfix">
-                <span class="cml-bottom-img fl mr-10">
-                  <img :src="imgUrl + item.user.avator" class="wh-all" alt="">
-                </span>
-                <span class="fl mr-20">作者:{{item.user.name}}</span>
-              </div>
-              <div class="fr clearfix">
-                <span class="fl mr-20">评论数:{{item.comments}}</span>
-                <span class="fl">浏览量:{{item.pv}}</span>
+    <template v-if="list.length > 0">
+      <el-timeline>
+        <el-timeline-item 
+          v-for="(item, index) in list" 
+          :key="index"
+          :timestamp="item.gmtModified | dateTime" 
+          placement="top">
+          <el-card>
+            <div @click="toDetail(item.id)" class="cml-list-item">
+              <h4 class="cml-title">{{item.title}}</h4>
+              <div class="cml-bottom clearfix">
+                <div class="fl clearfix">
+                  <span class="cml-bottom-img fl mr-10">
+                    <img :src="imgUrl + item.user.avator" class="wh-all" alt="">
+                  </span>
+                  <span class="fl mr-20">作者:{{item.user.name}}</span>
+                </div>
+                <div class="fr clearfix">
+                  <span class="fl mr-20">评论数:{{item.comments}}</span>
+                  <span class="fl">浏览量:{{item.pv}}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </el-card>
-      </el-timeline-item>
-    </el-timeline>
-    <div class="cml-page">
-      <el-pagination
-        v-if="list.length > 0"
-        :current-page="page.current"
-        :total="page.total"
-        :page-size="page.pageSize"
-        @current-change="chgCurrent"
-        background
-        layout="prev, pager, next">
-      </el-pagination>
-    </div>
+          </el-card>
+        </el-timeline-item>
+      </el-timeline>
+      <div class="cml-page">
+        <el-pagination
+          v-if="list.length > 0"
+          :current-page="page.current"
+          :total="page.total"
+          :page-size="page.pageSize"
+          @current-change="chgCurrent"
+          background
+          layout="prev, pager, next">
+        </el-pagination>
+      </div>
+    </template>
+    <div v-else class="cm-list-no">暂无文章</div>
   </div>
 </template>
 
@@ -74,8 +76,9 @@
 
 
 <style lang="scss" scoped>
-  .cm-list{
+  @import '../style/variables.scss';
 
+  .cm-list{
     .cml-page{
       text-align: center;
     }
@@ -83,14 +86,7 @@
       font-size: 22px;
       color: #1f2f3d;
       line-height: 30px;
-    }
-    .cml-conetnt{
-      padding: 5px 0;
-      font-size: 16px;
       margin-bottom: 10px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
     }
     .cml-bottom{
       line-height: 30px;
@@ -109,6 +105,10 @@
       &:hover{
         background: #f5f7fa;
       }
+    }
+    .cm-list-no{
+      text-align: center;
+      color: $--color-primary;
     }
 
   }

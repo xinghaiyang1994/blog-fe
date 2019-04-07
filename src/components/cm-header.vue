@@ -1,6 +1,6 @@
 <template>
   <div class="cm-header clearfix">
-    <div class="clearfix fl">
+    <div @click="$router.push('/posts')" class="clearfix fl">
       <i class="cmh-logo el-icon-document fl"></i>
       <span class="cmh-title fl">Blog</span>
     </div>

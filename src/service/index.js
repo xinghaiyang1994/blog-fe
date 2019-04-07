@@ -1,4 +1,13 @@
-const DOMAIN = '//local.xinghaiyang.com:3100'
+const ENV = process.env.VUE_APP_ENV
+
+const URL = {
+  DEV: '//local.xinghaiyang.com:3100',    // 本地测试
+  PRO: '//xinghaiyang:8999'   // 线上
+}
+
+const DOMAIN = URL[ENV]
+
+console.log('ENV: %s, DOMAIN: %s', process.env.VUE_APP_ENV, DOMAIN)
 
 const API = {
   IMG_URL: DOMAIN + '/',   // 图片路径
@@ -26,8 +35,6 @@ const API = {
   COMMENT_ADD: DOMAIN + '/comment/add',   // 新增评论
   COMMENT_DELETE: DOMAIN + '/comment/delete',   // 删除评论
   COMMENT_LIST: DOMAIN + '/comment/list',   // 评论列表
-
-  TEST_URL: '//xinghaiyang.com/test/b.php'
 }
 
 export default API

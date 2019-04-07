@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import store from '../store/index'
+
 import Register from '../views/register.vue'
 import Login from '../views/login.vue'
 import Posts from '../views/posts.vue'
@@ -10,7 +12,7 @@ import Create from '../views/create.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '*',
@@ -41,7 +43,8 @@ export default new Router({
       path: '/myPosts',
       component: MyPosts,
       meta: {
-        active: '/myPosts'
+        active: '/myPosts',
+        auth: true
       }
     },
     // 所有文章
@@ -63,7 +66,8 @@ export default new Router({
       component: Create,
       meta: {
         active: '/create',
-        type: 'add'
+        type: 'add',
+        auth: true
       }
     },
     // 编辑文章
@@ -71,8 +75,19 @@ export default new Router({
       path: '/posts/:id/edit',
       component: Create,
       meta: {
-        type: 'edit'
+        type: 'edit',
+        auth: true
       }
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth && !store.getters.isLogin) {
+    console.log('未登录跳转')
+    return next('/')
+  }
+  return next()
+})
+
+export default router
