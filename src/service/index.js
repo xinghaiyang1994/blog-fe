@@ -2,7 +2,7 @@ const ENV = process.env.VUE_APP_ENV
 
 const URL = {
   DEV: '//local.xinghaiyang.com:8999',    // 本地测试
-  PRO: '//xinghaiyang:8999'   // 线上
+  PRO: '//nblog-api.xinghaiyang.com'   // 线上
 }
 
 const DOMAIN = URL[ENV]
